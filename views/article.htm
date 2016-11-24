@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="full-screen" content="yes"><!-- UC强制全屏 -->    
+    <meta name="x5-fullscreen" content="true"><!-- QQ强制全屏 -->
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0">
+    <meta name="apple-touch-fullscreen" content="yes">
+    <meta name="format-detection" content="telephone=no" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+    <title><%=title %></title>
+    <link rel='stylesheet' href='/css/style.css' />
+    <link rel='stylesheet' href='/font/i.css' />
+</head>
+<body>
+    <div class="header">
+        <div class="container">
+            <div class="header-title">
+                <h1 class="logo-wrap">
+                    <a class="logo" href="javascript:;"></a>
+                </h1>
+                <h2 class="subtitie-wrap">
+                    <p class="subtitie">全站联盟 - Totter.cn</p>
+                    <p class="description">用技术为体验提供无限可能</p>
+                </h2>
+            </div>
+            <div class="header-nav">
+                <div class="header-nav-inner">
+                    <a class="nav-toggle iconfont" href="javascript:;">&#xe674;</a>
+                    <div class="nav-main">
+                        <a href="javascript:;">主页</a>
+                        <a href="javascript:;">Web开发</a>
+                        <a href="javascript:;">NodeJs</a>
+                        <a href="javascript:;">安卓开发</a>
+                        <a href="javascript:;">工具&amp;平台</a>
+                        <a href="javascript:;">团队生活</a>
+                        <a href="javascript:;">关于我们</a>
+                    </div>
+                    <div class="nav-search">
+                        <i class="iconfont search">&#xe62c;</i>
+                        <form class="search-form" action="//baidu.com/s" method="get" accept-charset="UTF-8">
+                            <input type="search" name="wd" class="search-form-input" placeholder="搜索" results="0">
+                            <input type="hidden" name="sitesearch" value="全站联盟">
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="container-inner">
+            <div class="main">
+                <div class="main-top">
+                    <h2 class="pos">
+                        <a href="javascript:;">当前位置：&gt;</a>
+                        <a href="javascript:;">文章&gt;</a>
+                        <a href="javascript:;"><%=title%></a>
+                    </h2>
+                </div>
+                <div class="main-body">
+                    <div class="article">
+                        <div class="article-title">
+                            <h1><%=title%></h1>
+                        </div>
+                        <div class="article-content">
+                            <%-content%>
+                        </div>
+                    </div>
+                </div>
+
+                <!--分页-->
+                <div class="pages">
+                    <div class="pages-info">
+                        <i class="iconfont">&#xe670;</i>
+                        <span>第 1 页</span>
+                        <span>共 10 页</span>
+                    </div>
+                    <div class="pages-list">
+                        <a href="javascript:;" class="page-number"><i class="iconfont">&#xe661;</i></a>
+                        <a href="javascript:;" class="page-number current">1</a>
+                        <a href="javascript:;" class="page-number">2</a>
+                        <a href="javascript:;" class="page-number">3</a>
+                        <a href="javascript:;" class="page-number">...</a>
+                        <a href="javascript:;" class="page-number">10</a>
+                        <a href="javascript:;" class="page-number"><i class="iconfont">&#xe662;</i></a>
+                    </div>
+                </div>
+            </div>
+
+            <!--侧栏-->
+            <div class="sidebar">
+                <div class="sidebar-top">
+                    <h3>关注我们</h3>
+                    <ul>
+                        <li><a href="javascript:;"><i class="iconfont ab">&#xe64b;</i></a></li>
+                        <li><a href="javascript:;"><i class="iconfont ab">&#xe635;</i></a></li>
+                        <li><a href="javascript:;"><i class="iconfont ab">&#xe629;</i></a></li>
+                    </ul>
+                </div>
+                <div class="sidebar-body">
+                    <div class="widget-wrap">
+                        <h3 class="widget-title"><i class="iconfont tit">&#xe630;</i>分类</h3>
+                        <div class="widget-list">
+                            <ul class="list">
+                                <li>
+                                    <i class="iconfont li">&#xe66e;</i>
+                                    <a href="javascript:;">NodeJs</a>
+                                    <em>(10)</em>
+                                </li>
+                                <li>
+                                    <i class="iconfont li">&#xe66e;</i>
+                                    <a href="javascript:;">NodeJs</a>
+                                    <em>(10)</em>
+                                </li>
+                                <li>
+                                    <i class="iconfont li">&#xe66e;</i>
+                                    <a href="javascript:;">NodeJs</a>
+                                    <em>(10)</em>
+                                </li>
+                                <li>
+                                    <i class="iconfont li">&#xe66e;</i>
+                                    <a href="javascript:;">NodeJs</a>
+                                    <em>(10)</em>
+                                </li>
+                                <li>
+                                    <i class="iconfont li">&#xe66e;</i>
+                                    <a href="javascript:;">NodeJs</a>
+                                    <em>(10)</em>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="widget-wrap">
+                        <h3 class="widget-title"><i class="iconfont tit">&#xe630;</i>归档</h3>
+                        <div class="widget-list">
+                            <ul class="list">
+                                <li>
+                                    <i class="iconfont li">&#xe66e;</i>
+                                    <a href="javascript:;">九月 2016</a>
+                                    <em>(10)</em>
+                                </li>
+                                <li>
+                                    <i class="iconfont li">&#xe66e;</i>
+                                    <a href="javascript:;">九月 2016</a>
+                                    <em>(10)</em>
+                                </li>
+                                <li>
+                                    <i class="iconfont li">&#xe66e;</i>
+                                    <a href="javascript:;">九月 2016</a>
+                                    <em>(10)</em>
+                                </li>
+                                <li>
+                                    <i class="iconfont li">&#xe66e;</i>
+                                    <a href="javascript:;">九月 2016</a>
+                                    <em>(10)</em>
+                                </li>
+                                <li>
+                                    <i class="iconfont li">&#xe66e;</i>
+                                    <a href="javascript:;">九月 2016</a>
+                                    <em>(10)</em>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="widget-wrap">
+                        <h3 class="widget-title"><i class="iconfont tit">&#xe630;</i>链接</h3>
+                        <div class="widget-list">
+                            <ul class="list">
+                                <li>
+                                    <i class="iconfont li">&#xe66e;</i>
+                                    <a href="javascript:;">淘宝UED</a>
+                                </li>
+
+                                <li>
+                                    <i class="iconfont li">&#xe66e;</i>
+                                    <a href="http://www.nodejs.club/">Node地下铁</a>
+                                </li>
+
+                                <li>
+                                    <i class="iconfont li">&#xe66e;</i>
+                                    <a href="http://alinode.aliyun.com/">alinode</a>
+                                </li>
+
+                                <li>
+                                    <i class="iconfont li">&#xe66e;</i>
+                                    <a href="http://fex.baidu.com/">百度FEX</a>
+                                </li>
+
+                                <li>
+                                    <i class="iconfont li">&#xe66e;</i>
+                                    <a href="http://www.75team.com/">奇舞团</a>
+                                </li>
+
+                                <li>
+                                    <i class="iconfont li">&#xe66e;</i>
+                                    <a href="http://aotu.io/notes/">凹凸实验室</a>
+                                </li>
+
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="footer">
+        <div class="footer-inner">
+            <p>Copyright &copy; 2016 Totter Full-Stack. All rights reserved.</p>
+        </div>
+    </div>
+</body>
+</html>
