@@ -1,17 +1,32 @@
 var express = require('express');
 var router = express.Router();
+var db = require('../bin/db');
+var json = {};
 
-/* GET home page. */
-router.get('/', function(req, res, next) {
+function sidebar(req, res, next) {
+  db.query('SELECT cate_Name As name,cate_Count As count FROM zbp_category', (err, results) => {
+    if (err) {
+      res.status(500).render('error.htm');
+    } else {
+      json['count'] = results;
+      // res.render('article.htm', json);
+    }
+  });
+  next();
+}
 
-    var request = require('request');
-
-    request('http://blog.totter.cn/?json=1&count=5&page=1', function (error, response, body) {
-      if (!error && response.statusCode == 200) {
-        res.render('index', {arr:JSON.parse(body).posts});
-      }
-    });
-
+router.get('/', (req, res, next)=>{
+  sidebar(req, res, next)
+}, (req, res, next) => {
+  db.query('SELECT log_ID AS id,log_Title AS title,log_Intro As info FROM zbp_post WHERE log_ID!=2', (err, results) => {
+    if (err) {
+      res.status(500).render('error.htm');
+    } else {
+      json['results'] = results;
+      res.render('index.htm', json);
+      // console.log(json);
+    }
+  });
 });
 
 module.exports = router;

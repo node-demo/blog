@@ -1,24 +1,32 @@
 var express = require('express');
-var request = require('request');
 var router = express.Router();
-var result={};
+var db = require('../bin/db');
+var json = {};
 
-router.get('/:id', function(req, res, next) {
-    //?json=get_post&post_id=1
-    //?json=get_tag_posts&tag_slug=banana
-    request('http://blog.totter.cn/?json=get_post&post_id='+req.params.id, function (error, response, body) {
-        if (!error && response.statusCode == 200) {
-            result=JSON.parse(body);
+function sidebar(req, res, next) {
+  db.query('SELECT cate_Name As name,cate_Count As count FROM zbp_category', (err, results) => {
+    if (err) {
+      res.status(500).render('error.htm');
+    } else {
+      json['count'] = results;
+      // res.render('article.htm', json);
+    }
+  });
+  next();
+}
 
-            if(result.status=="ok" && result.next_url || result.previous_url){
-                res.render('article', result.post);
-            }else if(result.status=="error"){
-                res.render('article', {id:null,title:"Not found",content:"Not found"});
-            }else{
-                res.render('article', {id:null,title:404,content:404});
-            }
-        }
-    });
+router.get('/:id', (req, res, next)=>{
+  sidebar(req, res, next)
+}, (req, res, next) => {
+  db.query('SELECT log_ID AS id,log_Title As title,log_Intro As content FROM zbp_post WHERE log_ID=?', [req.params.id], (err, results, next) => {
+    if (err) {
+      res.status(500).render('error.htm');
+    } else {
+      json['results'] = results[0];
+      res.render('article.htm', json);
+      // console.log(json);
+    }
+  });
 });
 
 module.exports = router;
