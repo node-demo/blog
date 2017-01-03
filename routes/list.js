@@ -33,7 +33,7 @@ router.get('/:id', (req, res, next) => {
         }
     });
     next();
-},(req, res) => {
+}, (req, res) => {
     //当前页
     page.now = req.query.p || 1;
     if (req.query.p <= 0) { page.now = 1; }
