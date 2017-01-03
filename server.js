@@ -22,9 +22,9 @@ app.use(cookieParser('identification'));
 
 // 2.处理session
 app.use(cookieSession({
-  name: 'sess_id',
-  keys: ['xx', 'xxx'],
-  maxAge: 20 * 3600 * 1000
+    name: 'sess_id',
+    keys: ['xx', 'xxx'],
+    maxAge: 20 * 3600 * 1000
 }));
 
 // 3.处理post
@@ -33,8 +33,10 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(multer({ dest: './www/upload' }).any());
 
 // 4.处理get
-app.use('/admin', require('./routes/admin'));
+app.use('/api', require('./routes/api'));
 app.use('/article', require('./routes/article'));
+app.use('/admin', require('./routes/admin'));
+app.use('/list', require('./routes/list'));
 app.use('/', require('./routes/index'));
 
 // 静态文件
@@ -42,11 +44,11 @@ app.use(express.static('./www'));
 
 // 错误处理
 app.use(function(err, req, res, next) {
-  res.locals.message = err.message;
-  res.locals.error = req.app.get('env') === 'development' ? err : {};
+    res.locals.message = err.message;
+    res.locals.error = req.app.get('env') === 'development' ? err : {};
 
-  res.status(err.status || 500);
-  res.render('error');
+    res.status(err.status || 500);
+    res.render('error');
 });
 
 module.exports = app;

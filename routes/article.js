@@ -4,7 +4,7 @@ var db = require('../bin/db');
 var json = {};
 
 function sidebar(req, res, next) {
-  db.query('SELECT cate_Name As name,cate_Count As count FROM zbp_category', (err, results) => {
+  db.query('SELECT cate_ID As id,cate_Name As name,cate_Count As count FROM zbp_category', (err, results) => {
     if (err) {
       res.status(500).render('error.htm');
     } else {

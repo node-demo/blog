@@ -1,34 +1,92 @@
+@charset "utf-8";
+
+/* 重置样式 */
+
 * {
-  margin: 0;
-  padding: 0;
+    -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+    outline: 0;
 }
 
-body {
-  background-color: #fff;
-  font-size: 14px;
-  font-family: 'Microsoft Yahei', SimSun, Helvetica;
-}
-
-::selection {
-  color: #fff;
-  background-color: #fa862e;
-}
-
-a {
-  color: #555;
-  text-decoration: none;
-}
-
-li {
-  list-style: none;
+body,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+hr,
+p,
+blockquote,
+dl,
+dt,
+dd,
+ul,
+ol,
+li,
+pre,
+form,
+button,
+input,
+textarea,
+th,
+td {
+    margin: 0;
+    padding: 0;
+    vertical-align: baseline;
 }
 
 img {
-  border: 0;
-  vertical-align: middle;
+    border: 0 none;
+    vertical-align: top;
 }
 
-em,
-i {
-  font-style: normal;
+i,
+em {
+    font-style: normal;
+}
+
+ol,
+ul {
+    list-style: none;
+}
+
+input,
+select,
+button,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    font-size: 100%;
+    font-family: inherit;
+}
+
+table {
+    border-collapse: collapse;
+    border-spacing: 0;
+}
+
+a,
+a:visited {
+    text-decoration: none;
+    color: #333;
+}
+
+body {
+    margin: 0 auto;
+    // min-width: 320px;
+    // max-width: 540px;
+    background: #FFF;
+    font-size: 14px;
+    font-family: -apple-system, 'Microsoft Yahei', SimSun, Helvetica, sans-serif;
+    line-height: 1.5;
+    color: #666;
+    -webkit-text-size-adjust: 100%!important;
+}
+
+::selection {
+    color: #fff;
+    background-color: #fa862e;
 }

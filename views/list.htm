@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="full-screen" content="yes">
+    <!-- UC强制全屏 -->
+    <meta name="x5-fullscreen" content="true">
+    <!-- QQ强制全屏 -->
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0">
+    <meta name="apple-touch-fullscreen" content="yes">
+    <meta name="format-detection" content="telephone=no" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+    <title>全栈联盟 - Just for fun</title>
+    <link rel='stylesheet' href='/css/style.css' />
+</head>
+
+<body>
+    <% include inc/header.htm %>
+        <div class="main">
+            <div class="items">
+                <div class="pos">
+                    <a href="javascript:;">当前位置：&gt;</a><a href="javascript:;">首页</a>
+                </div>
+                <% results.forEach(function(item){ %>
+                    <div class="item">
+                        <div class="thumb">
+                            <a href="/article/<%=item.id%>"><img src="/img/pic.png" alt=""></a>
+                        </div>
+                        <div class="intro">
+                            <div class="title">
+                                <a href="/article/<%=item.id%>">
+                                    <%= item.title %>
+                                </a>
+                            </div>
+                            <div class="meta"> <span>NodeJs</span> 2016-09-26 </div>
+                            <div class="text">
+                                <%- item.info %>
+                            </div>
+                        </div>
+                    </div>
+                    <% }) %>
+                    <div class="pages-wrap">
+                        <div class="info"> <span>第 <%= now %> 页</span> <span>共 <%= total %>页</span> </div>
+                        <div class="pages">
+                            <% for(var i=1;i<=total;i++){ %>
+                                <% if(i==now){ %>
+                                <a href="/list/<%= id %>?p=<%= i %>" class="page active"><%= i %></a>
+                                <% continue } %>
+                                <a href="/list/<%= id %>?p=<%= i %>" class="page"><%= i %></a>
+                            <% } %>
+                        </div>
+                    </div>
+            </div>
+            <% include inc/sidebar.htm %>
+        </div>
+        <% include inc/footer.htm %>
+</body>
+
+</html>
