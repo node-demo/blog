@@ -26,15 +26,15 @@ function sidebar(req, res, next) {
 router.get('/', (req, res, next) => {
     sidebar(req, res, next)
 }, (req, res, next) => {
-
-    db.query('SELECT count(log_ID) As count FROM zbp_post', (err, data) => {
+    db.query('SELECT count(log_ID) As count FROM zbp_post WHERE log_CateID=?', [req.params.id], (err, data) => {
         if (err) {
             res.status(500).send('page.total error');
         } else {
             page.total = Math.ceil(data[0].count / page.item); //总页数
         }
     });
-
+    next();
+}(req, res) => {
     //当前页
     page.now = req.query.p || 1;
     if (req.query.p <= 0) { page.now = 1; }

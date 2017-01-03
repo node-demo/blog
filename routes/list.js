@@ -32,15 +32,12 @@ router.get('/:id', (req, res, next) => {
             page.total = Math.ceil(data[0].count / page.item); //总页数
         }
     });
-
+    next();
+},(req, res) => {
     //当前页
     page.now = req.query.p || 1;
-    if (req.query.p <= 0) {
-        page.now = 1;
-    }
-    if (req.query.p >= page.total) {
-        page.now = page.total;
-    }
+    if (req.query.p <= 0) { page.now = 1; }
+    if (req.query.p >= page.total) { page.now = page.total; }
 
     //当前页起始ID
     page.start = (page.now - 1) * page.item;
