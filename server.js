@@ -8,9 +8,6 @@ const ejs = require('ejs');
 // 实例化express
 const app = express();
 
-// 监听端口
-app.listen(18080);
-
 // 配置模板引擎
 app.engine('htm', ejs.__express);
 app.set('view engine', 'htm');
@@ -56,5 +53,8 @@ app.use((err, req, res, next) => {
     res.status(500);
     res.render('error.htm', { error: err });
 });
+
+// 监听端口
+app.listen(18080);
 
 // module.exports = app;

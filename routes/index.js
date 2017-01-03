@@ -1,7 +1,7 @@
-var express = require('express');
-var router = express.Router();
-var db = require('../bin/db');
-var json = {};
+const express = require('express');
+const router = express.Router();
+const db = require('../bin/db');
+const json = {};
 
 const page = {
     now: 1,
@@ -11,26 +11,23 @@ const page = {
     aaa: 1
 };
 
-function sidebar(req, res, next) {
+router.get('/', (req, res, next) => {
     db.query('SELECT cate_ID As id,cate_Name As name,cate_Count As count FROM zbp_category', (err, data) => {
         if (err) {
             res.status(500).render('error.htm');
         } else {
             json['count'] = data;
-            // res.render('article.htm', json);
         }
     });
     next();
-}
-
-router.get('/', (req, res, next) => {
-    sidebar(req, res, next)
 }, (req, res, next) => {
     db.query('SELECT count(log_ID) As count FROM zbp_post', (err, data) => {
         if (err) {
             res.status(500).send('page.total error');
+            console.log('page.total error');
         } else {
-            page.total = Math.ceil(data[0].count / page.item); //总页数
+            page['total'] = Math.ceil(data[0].count / page.item); //总页数
+            console.log(page.total);
         }
     });
     next();
