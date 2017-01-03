@@ -26,7 +26,7 @@ function sidebar(req, res, next) {
 router.get('/', (req, res, next) => {
     sidebar(req, res, next)
 }, (req, res, next) => {
-    db.query('SELECT count(log_ID) As count FROM zbp_post WHERE log_CateID=?', [req.params.id], (err, data) => {
+    db.query('SELECT count(log_ID) As count FROM zbp_post', (err, data) => {
         if (err) {
             res.status(500).send('page.total error');
         } else {
