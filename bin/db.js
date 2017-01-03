@@ -5,7 +5,7 @@ const mysql = require('mysql');
 // const password = '0a615de5c61a4fb5a8086199338f64e9';
 // const db_host = 'sqld.duapp.com';
 // const db_port = 4050;
-// const db_name = 'KceWOxcRHuwehyjmHyQu';
+// const db_name = 'QUWXvEKfsUCoqIZEdgQf';
 
 // 本地
 const username = 'root';
