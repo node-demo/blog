@@ -1,4 +1,3 @@
-const http = require('http');
 const express = require('express');
 const bodyParser = require('body-parser');
 const cookieParser = require('cookie-parser');
@@ -42,13 +41,20 @@ app.use('/', require('./routes/index'));
 // 静态文件
 app.use(express.static('./www'));
 
-// 错误处理
-app.use(function(err, req, res, next) {
-    res.locals.message = err.message;
-    res.locals.error = req.app.get('env') === 'development' ? err : {};
-
-    res.status(err.status || 500);
-    res.render('error');
+// 404
+app.get('*', function(req, res){
+    res.render('404.htm', {
+        title: '404 No Found'
+    })
 });
 
-module.exports = app;
+// 错误处理
+app.use((err, req, res, next) => {
+    if (res.headersSent) {
+        return next(err);
+    }
+    res.status(500);
+    res.render('error.htm', { error: err });
+});
+
+// module.exports = app;
