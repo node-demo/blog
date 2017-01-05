@@ -15,7 +15,8 @@ var page = {
 };
 
 // get
-router.get('/', (req, res, next) => {
+router.get('/',
+function(req, res, next){
   db.query('SELECT cate_ID As id,cate_Name As name,cate_Count As count FROM zbp_category', (err, data) => {
     if (err) {
       res.status(500).send('500 - Server Error');
@@ -24,7 +25,8 @@ router.get('/', (req, res, next) => {
     }
   });
   next();
-}, (req, res, next) => {
+},
+function(req, res, next){
   db.query('SELECT count(log_ID) As count FROM zbp_post', (err, data) => {
     if (err) {
       res.status(500).send('page.total error');
@@ -33,7 +35,8 @@ router.get('/', (req, res, next) => {
     }
   });
   next();
-}, (req, res) => {
+},
+function(req, res, next){
   //当前页
   page.now = req.query.p || 1;
   if (req.query.p <= 0) { page.now = 1; }
