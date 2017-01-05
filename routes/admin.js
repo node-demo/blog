@@ -5,14 +5,14 @@ var md5 = require('../bin/md5');
 
 // 检查登录状态
 router.use((req, res, next) => {
-  if(!req.session['admin_id'] && req.url!='/login')
+  if (!req.session['admin_id'] && req.url != '/login')
     res.redirect('/admin/login'); //没登录
   else
-    next();                       //已登陆
+    next(); //已登陆
 });
 
 // 登录模块
-router.use('/login',require('./admin.login'));
+// router.use('/login', require('./login'));
 
 // 用户模块
 // router.use('/user',require('./admin.addUser'));

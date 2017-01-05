@@ -1,6 +1,7 @@
+const crypto = require('crypto');
+
 module.exports = function(str) {
-  const crypto = require('crypto');
-  const cryptoObj = crypto.createHash('md5');
-  cryptoObj.update(str);
-  return cryptoObj.digest('hex');
+  const obj = crypto.createHash('md5');
+  obj.update(str);
+  return obj.digest('hex');
 }

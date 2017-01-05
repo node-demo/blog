@@ -18,27 +18,16 @@
 
 <body>
   <% include inc/header.htm %>
-  <div class="main">
-    <div class="items">
-      <div class="pos">
-        <a href="javascript:;">当前位置：&gt;</a><a href="javascript:;">首页</a>
-      </div>
-
+    <div class="main">
       <div class="article">
-       <h1 class="title"><%= results.title %></h1>
-       <div class="meta">
-          <span>saturn</span>
-          <em>2016-12-24</em>
-          <em>收藏</em>
-          <em>评论</em>
-       </div>
+        <h1 class="title"><%= results.title %></h1>
+        <p class="time">Jun 5, 2016</p>
         <div class="content">
           <%- results.content %>
         </div>
       </div>
     </div>
-    <% include inc/sidebar.htm %>
-  </div>
-  <% include inc/footer.htm %>
+    <% include inc/footer.htm %>
 </body>
+
 </html>

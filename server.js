@@ -8,6 +8,9 @@ const ejs = require('ejs');
 // 实例化express
 const app = express();
 
+// 设置监听端口
+app.set('port', process.env.PORT || 18080);
+
 // 配置模板引擎
 app.engine('htm', ejs.__express);
 app.set('view engine', 'htm');
@@ -18,9 +21,9 @@ app.use(cookieParser('identification'));
 
 // 2.处理session
 app.use(cookieSession({
-    name: 'sess_id',
-    keys: ['xx', 'xxx'],
-    maxAge: 20 * 3600 * 1000
+  name: 'sess_id',
+  keys: ['xx', 'xxx'],
+  maxAge: 20 * 3600 * 1000
 }));
 
 // 3.处理post
@@ -31,30 +34,30 @@ app.use(multer({ dest: './www/upload' }).any());
 // 4.处理get
 app.use('/api', require('./routes/api'));
 app.use('/article', require('./routes/article'));
-app.use('/admin', require('./routes/admin'));
 app.use('/list', require('./routes/list'));
 app.use('/', require('./routes/index'));
 
 // 静态文件
 app.use(express.static('./www'));
 
-// 404
-app.get('*', function(req, res){
-    res.render('404.htm', {
-        title: '404 No Found'
-    })
+// 定制404页面
+app.get('*', (req, res) => {
+  res.type('text/plain');
+  res.status(404);
+  res.send('404 - No Found');
 });
 
-// 错误处理
+// 定制500页面
 app.use((err, req, res, next) => {
-    if (res.headersSent) {
-        return next(err);
-    }
-    res.status(500);
-    res.render('error.htm', { error: err });
+  console.error(err.stack);
+  res.type('text/plain');
+  res.status(500);
+  res.send('500 - Server Error');
 });
 
-// 监听端口
-app.listen(18080);
+// 启动监听
+var server = app.listen(app.get('port'), () => {
+  console.log(server.address().port);
+});
 
 // module.exports = app;

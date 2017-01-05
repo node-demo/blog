@@ -27,5 +27,36 @@ router.get('/', (req, res, next)=>{
     }
   });
 });
+router.post('/', (req, res, next) => {
 
+  var username = req.body.username;
+  var password = req.body.password;
+
+  db.query(`SELECT mem_ID AS id,mem_Name AS username,mem_Password AS password \
+    FROM zbp_member \
+    WHERE mem_Name=?`, [username],
+    (err, data) => {
+      if (err) {
+        res.status(500).send('500 - Server Error');
+        return;
+      }
+
+      // console.log(data);
+      // console.log(username,password);
+
+      if (data.length == 0) {
+        // 用户名不存在
+        jsonWrite(res, data);
+        return;
+      }
+
+      if (data[0].password == md5(password)) {
+        //登录成功
+        jsonWrite(res, data);
+      } else {
+        //登录失败
+        res.status(400).send('this password is incorrect');
+      }
+    });
+});
 module.exports = router;
