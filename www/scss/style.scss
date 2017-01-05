@@ -221,15 +221,18 @@
   }
 }
 
-.about {
+.user {
   text-align: center;
-  // display: none;
+  display: none;
   img {
     width: 150px;
     height: 150px;
     margin-top: 20px;
     border: 1px solid #ccc;
     border-radius: 4px;
+  }
+  span{
+    color: #f90;
   }
   &.active{
     display: block;
@@ -269,6 +272,10 @@
   }
   .tab.active{
     display: block;
+  }
+  .warn{
+    font-size: 12px;
+    color:red;
   }
   .tab-btn {
     text-indent: 180px;

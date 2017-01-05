@@ -31,7 +31,9 @@
                   <%= item.title %>
                 </a>
               </div>
-              <div class="meta"> <span>NodeJs</span> <%= item.time %> </div>
+              <div class="meta"> <span>NodeJs</span>
+                <%= item.time %>
+              </div>
               <div class="text">
                 <%- item.info %>
               </div>
@@ -55,16 +57,14 @@
             </div>
       </div>
       <div class="sidebar">
-        <% if(0){ %>
-        <div class="panel about">
+        <div class="panel user" id="user">
           <p><img src="/img/avatar.gif" alt=""></p>
-          <p>登录成功，Hello Saturn！</p>
+          <p>Hello <span class="username"></span></p>
         </div>
-        <% } %>
         <div class="panel login" id="login">
           <div class="tab active">
-            <form action="/login" method="post">
-              <h3 class="title">登录</h3>
+            <h3 class="title">登录</h3>
+            <form class="form-login" action="/api/user/login" method="post">
               <p>
                 <input type="text" name="username" placeholder="用户名">
               </p>
@@ -74,11 +74,12 @@
               <p>
                 <input type="submit" class="sub" value="登录">
               </p>
+              <p class="warn"></p>
             </form>
           </div>
           <div class="tab">
-            <form action="/login" method="post">
-              <h3 class="title">注册</h3>
+            <h3 class="title">注册</h3>
+            <form class="form-register" action="/api/user/register" method="post">
               <p>
                 <input type="text" name="username" placeholder="用户名">
               </p>
@@ -88,10 +89,11 @@
               <p>
                 <input type="submit" class="sub" value="注册">
               </p>
+              <p class="warn"></p>
             </form>
           </div>
           <div class="tab-btn">
-            <a href="javascript:;" class="btn ">去登录</a>
+            <a href="javascript:;" class="btn">去登录</a>
             <a href="javascript:;" class="btn active">去注册</a>
           </div>
         </div>
@@ -117,24 +119,74 @@
       </div>
     </div>
     <% include inc/footer.htm %>
-    <script>
-      window.onload = function() {
-        var oBox = document.getElementById('login');
-        var aTab = oBox.getElementsByClassName('tab');
-        var aBtn = oBox.getElementsByClassName('btn');
+      <script src="js/jquery.min.js"></script>
+      <script>
+        $(function () {
+          var oUser = $('#user');
+          var oLogin = $('#login');
+          var oFormLogin = $('.form-login');
+          var oFormRegister = $('.form-register');
 
-        for (var i = 0; i < aBtn.length; i++) {
-          aBtn[i].index = i;
-          aBtn[i].onclick = function() {
-            for (var i = 0; i < aBtn.length; i++) {
-              aTab[i].className = "tab";
-              aBtn[i].className = "btn";
-            }
-            aTab[this.index].className = "tab active";
-            aBtn[this.index].className = "btn active";
-          };
-        };
-      };
-    </script>
+          oLogin.find('.btn').on('click', function () {
+            var index = $(this).index();
+            oLogin.find('.btn').eq(index).addClass('active').siblings().removeClass('active');
+            oLogin.find('.tab').eq(index).addClass('active').siblings().removeClass('active');
+          });
+
+          oFormRegister.on('submit', function (ev) {
+            ev.preventDefault();
+            var $action = $(this).attr('action');
+            var $warn = $(this).find('.warn');
+            $(this).find('input[name=username],input[name=password]').on('focus', function () {
+              $warn.html('');
+            });
+            $.ajax({
+              url: $action,
+              type: 'POST',
+              data: {
+                username: $(this).find('input[name=username]').val(),
+                password: $(this).find('input[name=password]').val()
+              },
+              success: function (data) {
+                console.log(data);
+                $warn.html(data.msg);
+              },
+              error: function (err) {
+                console.log(err);
+              }
+            });
+          });
+
+          oFormLogin.on('submit', function (ev) {
+            ev.preventDefault();
+            var $action = $(this).attr('action');
+            var $warn = $(this).find('.warn');
+            $(this).find('input[name=username],input[name=password]').on('focus', function () {
+              $warn.html('');
+            });
+            $.ajax({
+              url: $action,
+              type: 'POST',
+              data: {
+                username: $(this).find('input[name=username]').val(),
+                password: $(this).find('input[name=password]').val()
+              },
+              success: function (data) {
+                console.log(data);
+                $warn.html(data.msg);
+                if (data.code == 0) {
+                  oLogin.hide();
+                  oUser.show();
+                  oUser.find('.username').html(data.data[0].username);
+                }
+              },
+              error: function (err) {
+                console.log(err);
+              }
+            });
+          });
+        });
+      </script>
 </body>
+
 </html>

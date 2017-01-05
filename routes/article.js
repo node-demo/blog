@@ -1,5 +1,4 @@
-const express = require('express');
-const router = express.Router();
+const router = require('express').Router();
 const common = require('../bin/common');
 const db = require('../bin/db');
 var json = {};
