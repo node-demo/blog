@@ -1,9 +1,10 @@
 const router = require('express').Router();
 const db = require('../bin/db');
 const common = require('../bin/common');
+const sidebar = require('./sidebar');
 
 var json = {
-  count: 1,
+  count: [],
   total: 1
 };
 
@@ -11,21 +12,10 @@ var page = {
   now: 1,
   item: 5,
   start: 0,
-  total: 1,
-  aaa: 1
+  total: 1
 };
 
-router.get('/:id',
-  function (req, res, next) {
-    db.query('SELECT cate_ID As id,cate_Name As name,cate_Count As count FROM zbp_category', (err, results) => {
-      if (err) {
-        res.status(500).send('500 - Server Error');
-      } else {
-        json['count'] = results;
-        next();
-      }
-    });
-  },
+router.get('/:id',sidebar,
   function (req, res, next) {
     db.query('SELECT count(log_ID) As count FROM zbp_post WHERE log_CateID=?', [req.params.id], (err, data) => {
       if (err) {
@@ -51,8 +41,8 @@ router.get('/:id',
     page.start = (page.now - 1) * page.item;
 
     db.query(`SELECT log_ID AS id,log_Title AS title,log_Intro As info \
-    FROM zbp_post \
-    WHERE log_ID!=2 AND log_CateID=?  LIMIT ?,?`, [typeId, page.start, page.item],
+      FROM zbp_post \
+      WHERE log_ID!=2 AND log_CateID=?  LIMIT ?,?`, [typeId, page.start, page.item],
       (err, data) => {
         if (err) {
           res.status(500).send('500 - Server Error');
@@ -60,10 +50,12 @@ router.get('/:id',
           json['total'] = page.total;
           json['now'] = page.now;
           json['id'] = typeId;
+          json['count'] = res.locals.count;
           json['results'] = data;
           res.render('list.htm', json);
         }
       });
-  });
+  }
+);
 
 module.exports = router;

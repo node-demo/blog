@@ -1,8 +1,10 @@
 const router = require('express').Router();
 const common = require('../bin/common');
 const db = require('../bin/db');
+const sidebar = require('./sidebar');
+
 var json = {
-  count: 1,
+  count: [],
   total: 1
 };
 
@@ -14,17 +16,7 @@ var page = {
 };
 
 // get
-router.get('/',
-  function (req, res, next) {
-    db.query('SELECT cate_ID As id,cate_Name As name,cate_Count As count FROM zbp_category', (err, data) => {
-      if (err) {
-        res.status(500).send('500 - Server Error');
-      } else {
-        json['count'] = data;
-        next();
-      }
-    });
-  },
+router.get('/',sidebar,
   function (req, res, next) {
     db.query('SELECT count(log_ID) As count FROM zbp_post', (err, data) => {
       if (err) {
@@ -49,17 +41,19 @@ router.get('/',
     page.start = (page.now - 1) * page.item;
 
     db.query(`SELECT log_ID AS id,log_PostTime As time,log_Title AS title,log_Intro As info \
-        FROM zbp_post \
-        WHERE log_ID!=2 LIMIT ?,?`, [page.start, page.item],
+      FROM zbp_post \
+      WHERE log_ID!=2 LIMIT ?,?`, [page.start, page.item],
       (err, data) => {
         if (err) {
           res.status(500).send('500 - Server Error');
         } else {
           json['total'] = page.total;
           json['now'] = page.now;
+          json['count'] = res.locals.count;
           json['results'] = data;
           res.render('index.htm', json);
         }
       });
-  });
+  }
+);
 module.exports = router;
