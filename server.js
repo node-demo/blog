@@ -40,6 +40,7 @@ app.use(multer({ dest: './www/upload' }).any());
 app.use('/api', require('./routes/api'));
 app.use('/article', require('./routes/article'));
 app.use('/list', require('./routes/list'));
+app.use('/admin', require('./routes/admin'));
 app.use('/', require('./routes/index'));
 
 // 静态文件
