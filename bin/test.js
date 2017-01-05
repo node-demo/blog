@@ -1,3 +1,5 @@
-const md5 = require('./md5');
+const common = require('./common');
 
-console.log(md5('password'));
+console.log(common.md5('password'));
+
+console.log(common.time(1459998209));

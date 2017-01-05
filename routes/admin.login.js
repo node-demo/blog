@@ -1,7 +1,7 @@
-var express = require('express');
-var router = express.Router();
-var db = require('../bin/db');
-var md5 = require('../bin/md5');
+const express = require('express');
+const router = express.Router();
+const common = require('../bin/common');
+const db = require('../bin/db');
 
 router.post('/', (req, res, next) => {
 
@@ -24,7 +24,7 @@ router.post('/', (req, res, next) => {
       }
 
       // console.log(data);
-      if (data[0].password == md5(password)) {
+      if (data[0].password == common.md5(password)) {
         //登录成功
         req.session['admin_id'] = data[0].id;
         res.redirect('/admin');

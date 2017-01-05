@@ -1,7 +1,7 @@
-var express = require('express');
-var router = express.Router();
-var db = require('../bin/db');
-var md5 = require('../bin/md5');
+const express = require('express');
+const router = express.Router();
+const common = require('../bin/common');
+const db = require('../bin/db');
 
 // 检查登录状态
 router.use((req, res, next) => {

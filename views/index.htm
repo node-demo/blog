@@ -31,7 +31,7 @@
                   <%= item.title %>
                 </a>
               </div>
-              <div class="meta"> <span>NodeJs</span> 2016-09-26 </div>
+              <div class="meta"> <span>NodeJs</span> <%= item.time %> </div>
               <div class="text">
                 <%- item.info %>
               </div>
@@ -100,7 +100,7 @@
           <div class="tags">
             <% count.forEach(function(item){ %>
               <a href="/list/<%= item.id %>">
-                <%= item.name %><em>( <%= item.count %> )</em></a>
+                <%= item.name %><em>(<%= item.count %>)</em></a>
               <% }) %>
           </div>
         </div>

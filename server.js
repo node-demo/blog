@@ -8,8 +8,13 @@ const ejs = require('ejs');
 // 实例化express
 const app = express();
 
-// 设置监听端口
+// 监听端口
 app.set('port', process.env.PORT || 18080);
+
+// 启动监听
+var server = app.listen(app.get('port'), () => {
+  console.log(server.address().port);
+});
 
 // 配置模板引擎
 app.engine('htm', ejs.__express);
@@ -53,11 +58,6 @@ app.use((err, req, res, next) => {
   res.type('text/plain');
   res.status(500);
   res.send('500 - Server Error');
-});
-
-// 启动监听
-var server = app.listen(app.get('port'), () => {
-  console.log(server.address().port);
 });
 
 // module.exports = app;

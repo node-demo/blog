@@ -1,8 +1,9 @@
-var express = require('express');
-var router = express.Router();
-var db = require('../bin/db');
+const express = require('express');
+const router = express.Router();
+const common = require('../bin/common');
+const db = require('../bin/db');
 
-var jsonWrite = function (res, ret) {
+const jsonWrite = function (res, ret) {
     if(!ret.length) {
         res.json({
             code:404,
@@ -27,7 +28,8 @@ router.get('/', (req, res, next)=>{
     }
   });
 });
-router.post('/', (req, res, next) => {
+
+router.post('/user/login', (req, res, next) => {
 
   var username = req.body.username;
   var password = req.body.password;

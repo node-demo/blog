@@ -1,6 +1,7 @@
-var express = require('express');
-var router = express.Router();
-var db = require('../bin/db');
+const express = require('express');
+const router = express.Router();
+const common = require('../bin/common');
+const db = require('../bin/db');
 var json = {};
 
 function sidebar(req, res, next) {

@@ -2,12 +2,12 @@ const express = require('express');
 const router = express.Router();
 const db = require('../bin/db');
 const md5 = require('../bin/md5');
-const json = {
+var json = {
   count:1,
   total:1
 };
 
-const page = {
+var page = {
   now: 1,
   item: 5,
   start: 0,
