@@ -1,6 +1,7 @@
 const router = require('express').Router();
-const common = require('../bin/common');
 const db = require('../bin/db');
+const sqlMap = require('../bin/sqlMap');
+const common = require('../bin/common');
 const sidebar = require('./sidebar');
 
 var json = {
@@ -18,11 +19,11 @@ var page = {
 // get
 router.get('/',sidebar,
   function (req, res, next) {
-    db.query('SELECT count(log_ID) As count FROM zbp_post', (err, data) => {
+    db.query(sqlMap.index.total, (err, data) => {
       if (err) {
         res.status(500).send('page.total error');
       } else {
-        page['total'] = Math.ceil(data[0].count / page.item); //总页数
+        page.total = Math.ceil(data[0].count / page.item); //总页数
         next();
       }
     });
@@ -40,9 +41,7 @@ router.get('/',sidebar,
     //当前页起始ID
     page.start = (page.now - 1) * page.item;
 
-    db.query(`SELECT log_ID AS id,log_PostTime As time,log_Title AS title,log_Intro As info \
-      FROM zbp_post \
-      WHERE log_ID!=2 LIMIT ?,?`, [page.start, page.item],
+    db.query(sqlMap.index.json, [page.start, page.item],
       (err, data) => {
         if (err) {
           res.status(500).send('500 - Server Error');
@@ -56,4 +55,5 @@ router.get('/',sidebar,
       });
   }
 );
+
 module.exports = router;

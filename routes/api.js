@@ -1,11 +1,11 @@
 const router = require('express').Router();
-const common = require('../bin/common');
 const db = require('../bin/db');
+const sqlMap = require('../bin/sqlMap');
+const common = require('../bin/common');
 
 // 开放测试数据
 router.get('/', (req, res, next) => {
-  db.query('SELECT log_PostTime,log_Title,log_Intro,log_Content FROM zbp_post',
-    (err, data) => {
+  db.query(sqlMap.all,(err, data) => {
       if (err) {
         common.json(res, -1, "500 - Server Error", []);
       } else {
@@ -28,7 +28,7 @@ router.post('/user/register',
       return;
     }
 
-    db.query(`SELECT mem_Name AS username FROM zbp_member WHERE mem_Name=?`, [username],
+    db.query(sqlMap.user.register.occupied, [username],
       (err, data) => {
         // console.log(data);
         if (err) {
@@ -52,8 +52,7 @@ router.post('/user/register',
       return;
     }
 
-    db.query(`INSERT INTO zbp_member(mem_Name,mem_Password) VALUES( ? , ? )`, [username, common.md5(password)],
-      (err, data) => {
+    db.query(sqlMap.user.register.success, [username, common.md5(password)],(err, data) => {
         // console.log(username, password);
         if (err) {
           common.json(res, -1, "500 - Server Error", []);
@@ -79,8 +78,7 @@ router.post('/user/login',
       return;
     }
 
-    db.query(`SELECT mem_ID AS id, mem_Name AS username, mem_Password AS password FROM zbp_member WHERE mem_Name = ? `, [username],
-      (err, data) => {
+    db.query(sqlMap.user.login.success, [username],(err, data) => {
         // console.log(data);
         // console.log(username, password);
         if (err) {

@@ -55,14 +55,14 @@
             </div>
       </div>
       <div class="sidebar">
-        <div class="panel about" style="display: none;">
+        <div class="panel user" id="user">
           <p><img src="/img/avatar.gif" alt=""></p>
-          <p>登录成功，Hello Saturn！</p>
+          <p>Hello <span class="username"></span></p>
         </div>
         <div class="panel login" id="login">
           <div class="tab active">
-            <form action="" method="post">
-              <h3 class="title">登录</h3>
+            <h3 class="title">登录</h3>
+            <form class="form-login" action="/api/user/login" method="post">
               <p>
                 <input type="text" name="username" placeholder="用户名">
               </p>
@@ -72,11 +72,12 @@
               <p>
                 <input type="submit" class="sub" value="登录">
               </p>
+              <p class="warn"></p>
             </form>
           </div>
           <div class="tab">
-            <form action="" method="post">
-              <h3 class="title">注册</h3>
+            <h3 class="title">注册</h3>
+            <form class="form-register" action="/api/user/register" method="post">
               <p>
                 <input type="text" name="username" placeholder="用户名">
               </p>
@@ -86,10 +87,11 @@
               <p>
                 <input type="submit" class="sub" value="注册">
               </p>
+              <p class="warn"></p>
             </form>
           </div>
           <div class="tab-btn">
-            <a href="javascript:;" class="btn ">去登录</a>
+            <a href="javascript:;" class="btn">去登录</a>
             <a href="javascript:;" class="btn active">去注册</a>
           </div>
         </div>

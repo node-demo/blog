@@ -1,6 +1,7 @@
 const router = require('express').Router();
-const common = require('../bin/common');
 const db = require('../bin/db');
+const sqlApi = require('../bin/sqlApi');
+const common = require('../bin/common');
 
 // 检查登录状态(授权)
 function authorize(req, res, next){
@@ -9,6 +10,7 @@ function authorize(req, res, next){
   res.send('not-authorized');
 }
 
+//get
 router.get('/', authorize, function(req, res, next) {
   res.send('/admin');
 });
@@ -18,15 +20,14 @@ router.get('/login', authorize, function(req, res, next) {
 router.get('/register', authorize, function(req, res, next) {
   res.send('/admin/register');
 });
+
+//post
 router.post('/', function(req, res, next) {
 
     var username = req.body.username;
     var password = req.body.password;
 
-    db.query(`SELECT mem_ID AS id,mem_Name AS username,mem_Password AS password \
-    FROM zbp_member \
-    WHERE mem_Name=?`, [username],
-        (err, data) => {
+    db.query(sqlApi.admin.login.success, [username],(err, data) => {
             if (err) {
                 res.status(500).send('500 - Server Error');
                 return;
@@ -49,4 +50,12 @@ router.post('/', function(req, res, next) {
             }
         });
 });
+
+router.post('/login', authorize, function(req, res, next) {
+  res.send('/admin/login');
+});
+router.post('/register', authorize, function(req, res, next) {
+  res.send('/admin/register');
+});
+
 module.exports = router;
