@@ -2,191 +2,61 @@
 <html>
 
 <head>
-  <meta charset="UTF-8">
-  <meta name="full-screen" content="yes">
-  <!-- UC强制全屏 -->
-  <meta name="x5-fullscreen" content="true">
-  <!-- QQ强制全屏 -->
-  <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0">
-  <meta name="apple-touch-fullscreen" content="yes">
-  <meta name="format-detection" content="telephone=no" />
-  <meta name="apple-mobile-web-app-capable" content="yes" />
-  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
-  <title>全栈联盟 - Just for fun</title>
-  <link rel='stylesheet' href='/css/style.css' />
+    <meta charset="UTF-8">
+    <meta name="full-screen" content="yes">
+    <!-- UC强制全屏 -->
+    <meta name="x5-fullscreen" content="true">
+    <!-- QQ强制全屏 -->
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0">
+    <meta name="apple-touch-fullscreen" content="yes">
+    <meta name="format-detection" content="telephone=no" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+    <title>全栈联盟 - Just for fun</title>
+    <link rel='stylesheet' href='/css/style.css' />
 </head>
 
 <body>
-  <% include inc/header.htm %>
-    <div class="main">
-      <div class="items">
-        <% results.forEach(function(item){ %>
-          <div class="item">
-            <div class="thumb">
-              <a href="/article/<%=item.id%>"><img src="img/pic.png" alt=""></a>
-            </div>
-            <div class="intro">
-              <div class="title">
-                <a href="/article/<%=item.id%>">
-                  <%= item.title %>
-                </a>
-              </div>
-              <div class="meta"> <span>NodeJs</span>
-                <%= item.time %>
-              </div>
-              <div class="text">
-                <%- item.info %>
-              </div>
-            </div>
-          </div>
-          <% }) %>
-            <div class="pages-wrap">
-              <div class="info"> <span>第 <%= now %> 页</span> <span>共 <%= total %>页</span> </div>
-              <div class="pages">
-                <% for(var i=1;i<=total;i++){ %>
-                  <% if(i==now){ %>
-                    <a href="/?p=<%= i %>" class="page active">
-                      <%= i %>
-                    </a>
-                    <% continue } %>
-                      <a href="/?p=<%= i %>" class="page">
-                        <%= i %>
-                      </a>
-                      <% } %>
-              </div>
-            </div>
-      </div>
-      <div class="sidebar">
-        <div class="panel user" id="user">
-          <p><img src="/img/avatar.gif" alt=""></p>
-          <p>Hello <span class="username"></span></p>
-        </div>
-        <div class="panel login" id="login">
-          <div class="tab active">
-            <h3 class="title">登录</h3>
-            <form class="form-login" action="/api/user/login" method="post">
-              <p>
-                <input type="text" name="username" placeholder="用户名">
-              </p>
-              <p>
-                <input type="text" name="password" placeholder="密码">
-              </p>
-              <p>
-                <input type="submit" class="sub" value="登录">
-              </p>
-              <p class="warn"></p>
-            </form>
-          </div>
-          <div class="tab">
-            <h3 class="title">注册</h3>
-            <form class="form-register" action="/api/user/register" method="post">
-              <p>
-                <input type="text" name="username" placeholder="用户名">
-              </p>
-              <p>
-                <input type="text" name="password" placeholder="密码">
-              </p>
-              <p>
-                <input type="submit" class="sub" value="注册">
-              </p>
-              <p class="warn"></p>
-            </form>
-          </div>
-          <div class="tab-btn">
-            <a href="javascript:;" class="btn">去登录</a>
-            <a href="javascript:;" class="btn active">去注册</a>
-          </div>
-        </div>
-        <div class="panel">
-          <h3 class="title">文章分类</h3>
-          <div class="tags">
-            <% count.forEach(function(item){ %>
-              <a href="/list/<%= item.id %>">
-                <%= item.name %><em>(<%= item.count %>)</em></a>
-              <% }) %>
-          </div>
-        </div>
-        <div class="panel">
-          <h3 class="title">友情链接</h3>
-          <div class="link">
-            <a href="https://vmto.github.io">git blog</a>
-            <a href="http://vuejs.org/">vuejs</a>
-            <a href="http://webpack.github.io/">webpack</a>
-            <a href="https://nodejs.org/en/">nodeJs</a>
-            <a href="http://www.expressjs.com.cn/">express</a>
-          </div>
-        </div>
-      </div>
-    </div>
-    <% include inc/footer.htm %>
-      <script src="js/jquery.min.js"></script>
-      <script>
-        $(function () {
-          var oUser = $('#user');
-          var oLogin = $('#login');
-          var oFormLogin = $('.form-login');
-          var oFormRegister = $('.form-register');
+    <% include inc/header.htm %>
+        <div class="main">
+            <div class="items">
+                <div class="pos">
+                    <a href="javascript:;">当前位置：&gt;</a><a href="javascript:;">首页</a>
+                </div>
 
-          oLogin.find('.btn').on('click', function () {
-            var index = $(this).index();
-            oLogin.find('.btn').eq(index).addClass('active').siblings().removeClass('active');
-            oLogin.find('.tab').eq(index).addClass('active').siblings().removeClass('active');
-          });
-
-          oFormRegister.on('submit', function (ev) {
-            ev.preventDefault();
-            var $action = $(this).attr('action');
-            var $warn = $(this).find('.warn');
-            $(this).find('input[name=username],input[name=password]').on('focus', function () {
-              $warn.html('');
-            });
-            $.ajax({
-              url: $action,
-              type: 'POST',
-              data: {
-                username: $(this).find('input[name=username]').val(),
-                password: $(this).find('input[name=password]').val()
-              },
-              success: function (data) {
-                console.log(data);
-                $warn.html(data.msg);
-              },
-              error: function (err) {
-                console.log(err);
-              }
-            });
-          });
-
-          oFormLogin.on('submit', function (ev) {
-            ev.preventDefault();
-            var $action = $(this).attr('action');
-            var $warn = $(this).find('.warn');
-            $(this).find('input[name=username],input[name=password]').on('focus', function () {
-              $warn.html('');
-            });
-            $.ajax({
-              url: $action,
-              type: 'POST',
-              data: {
-                username: $(this).find('input[name=username]').val(),
-                password: $(this).find('input[name=password]').val()
-              },
-              success: function (data) {
-                console.log(data);
-                $warn.html(data.msg);
-                if (data.code == 0) {
-                  oLogin.hide();
-                  oUser.show();
-                  oUser.find('.username').html(data.data[0].username);
-                }
-              },
-              error: function (err) {
-                console.log(err);
-              }
-            });
-          });
-        });
-      </script>
+                <% results.forEach(function(item){ %>
+                <div class="item">
+                    <div class="thumb">
+                        <a href="/article/<%=item.id%>"><img src="img/pic.png" alt=""></a>
+                    </div>
+                    <div class="intro">
+                        <div class="title">
+                            <a href="/article/<%=item.id%>">
+                                <%= item.title %>
+                            </a>
+                        </div>
+                        <div class="meta"> <span>NodeJs</span> 2016-09-26 </div>
+                        <div class="text">
+                            <%- item.info %>
+                        </div>
+                    </div>
+                </div>
+                <% }) %>
+                <div class="pages-wrap">
+                    <div class="info"> <span>第 <%= now %> 页</span> <span>共 <%= total %>页</span> </div>
+                    <div class="pages">
+                        <% for(var i=1;i<=total;i++){ %>
+                            <% if(i==now){ %>
+                            <a href="/?p=<%= i %>" class="page active"><%= i %></a>
+                            <% continue } %>
+                            <a href="/?p=<%= i %>" class="page"><%= i %></a>
+                        <% } %>
+                    </div>
+                </div>
+            </div>
+            <% include inc/sidebar.htm %>
+        </div>
+        <% include inc/footer.htm %>
 </body>
 
 </html>

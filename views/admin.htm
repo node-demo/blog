@@ -21,20 +21,17 @@
   <div class="main">
     <div class="items">
       <div class="pos">
-        <a href="javascript:;">当前位置：&gt;</a><a href="javascript:;">首页</a>
+        <a href="javascript:;">当前位置：&gt;</a><a href="javascript:;">admin</a>
       </div>
-
-      <div class="article">
-       <h1 class="title"><%= results.title %></h1>
-       <div class="meta">
-          <span>saturn</span>
-          <em>2016-12-24</em>
-          <em>收藏</em>
-          <em>评论</em>
-       </div>
-        <div class="content">
-          <%- results.content %>
-        </div>
+      <div class="item">
+        <form action="" method="post">
+          <p><input type="text" name="username" plaseholder="帐号"></p>
+          <p><input type="password" name="password" plaseholder="密码"></p>
+          <p>
+            <input type="reset" name="reset" value="重置">
+            <input type="submit" name="submit" value="提交">
+          </p>
+        </form>
       </div>
     </div>
     <% include inc/sidebar.htm %>

@@ -1,11 +1,18 @@
 const mysql = require('mysql');
 
+// 线上
+// const username = '6cb78e801aa7490cb9f3beaaa2aa7aed';
+// const password = '0a615de5c61a4fb5a8086199338f64e9';
+// const db_host = 'sqld.duapp.com';
+// const db_port = 4050;
+// const db_name = 'QUWXvEKfsUCoqIZEdgQf';
+
 // 本地
 const username = 'root';
 const password = 'root';
 const db_host = 'localhost';
 const db_port = 3306;
-const db_name = 'test';
+const db_name = 'zblog';
 
 const option = {
   host: db_host,
